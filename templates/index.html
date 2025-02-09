@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Recommendation</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>News & Movie Recommender</title>
+    
+        <!-- Link CSS from the static folder -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    
+        <!-- Link JavaScript from the static folder -->
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+        <!-- Link Favicon -->
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    </head>
+    
 <body>
     <div class="container">
         <h1>Movie Recommendation System</h1>

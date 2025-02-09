@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Movie Recommender</title>
+</head>
+<body>
+    <h1>News & Movie Recommender</h1>
+    
+    <form method="POST">
+        <input type="text" name="keyword" placeholder="Enter movie keyword..." required>
+        <button type="submit">Recommend</button>
+    </form>
+
+    {% if recommendations %}
+        <h2>Recommended Movies:</h2>
+        <ul>
+            {% for movie, desc in recommendations %}
+                <li>
+                    <strong>{{ movie }}</strong>: {{ desc }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if news_recommendations %}
+        <h2>Recommended News:</h2>
+        <ul>
+            {% for news in news_recommendations %}
+                <li>
+                    <strong>{{ news.title }}</strong> ({{ news.category }})<br>
+                    <a href="{{ news.link }}" target="_blank">Read more</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
