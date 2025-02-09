@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Recommendation News</title>
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <title>Movie Recommendation</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Movie Recommendation & News</h1>
-        <input type="text" id="movieInput" placeholder="Enter movie titles (comma-separated)">
+        <h1>Movie Recommendation System</h1>
+        <input type="text" id="userInput" placeholder="Enter movie titles (comma-separated)">
         <button onclick="getRecommendations()">Get Recommendations</button>
-        
-        <h2>Recommended Movies</h2>
-        <ul id="recommendedMovies"></ul>
-        
-        <h2>Recommended News</h2>
-        <ul id="recommendedNews"></ul>
+        <div id="result"></div>
     </div>
 
     <script src="script.js"></script>

@@ -1,50 +1,36 @@
-async function loadPyodideAndRun() {
-    window.pyodide = await loadPyodide();
-    await pyodide.loadPackage("numpy");
-    await pyodide.loadPackage("pandas");
-    await pyodide.loadPackage("scikit-learn");
-    await pyodide.loadPackage("transformers");
-    await pyodide.loadPackage("torch");
-}
-loadPyodideAndRun();
+function getRecommendations() {
+    let inputText = document.getElementById("userInput").value;
+    let userInputs = inputText.split(',').map(item => item.trim()); // Convert input into an array
 
-async function getRecommendations() {
-    let movieInput = document.getElementById("movieInput").value;
-    let movieList = movieInput.split(",").map(movie => movie.trim());
-    
-    let pythonCode = `
-import json
-user_inputs = ${JSON.stringify(movieList)}
-result = recommend_movies(user_inputs, df, df_final)
-json.dumps(result)
-    `;
-    
-    let result = await pyodide.runPythonAsync(pythonCode);
-    let recommendations = JSON.parse(result);
-    
-    displayResults(recommendations);
-}
+    if (userInputs.length === 0 || userInputs[0] === "") {
+        alert("Please enter at least one movie title.");
+        return;
+    }
 
-function displayResults(recommendations) {
-    let movieListElem = document.getElementById("recommendedMovies");
-    let newsListElem = document.getElementById("recommendedNews");
-    
-    movieListElem.innerHTML = "";
-    newsListElem.innerHTML = "";
-    
-    recommendations["Recommended Movies"].forEach(movie => {
-        let li = document.createElement("li");
-        li.textContent = movie;
-        movieListElem.appendChild(li);
-    });
-    
-    recommendations["Recommended News"].forEach(news => {
-        let li = document.createElement("li");
-        let a = document.createElement("a");
-        a.href = news.link;
-        a.textContent = news.title;
-        a.target = "_blank";
-        li.appendChild(a);
-        newsListElem.appendChild(li);
-    });
+    fetch("https://News Recommendation.netlify.app/recommend", { // Replace with actual Netlify function URL
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ movies: userInputs })
+    })
+    .then(response => response.json())
+    .then(data => {
+        let resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "<h2>Recommended Movies</h2>";
+        
+        if (data["Recommended Movies"].length === 0) {
+            resultDiv.innerHTML += "<p>No recommendations found.</p>";
+            return;
+        }
+
+        let list = "<ul>";
+        data["Recommended Movies"].forEach((movie, index) => {
+            list += `<li><strong>${movie}</strong> - ${data["Recommended Movies Descriptions"][index]}</li>`;
+        });
+        list += "</ul>";
+
+        resultDiv.innerHTML += list;
+    })
+    .catch(error => console.error("Error:", error));
 }
