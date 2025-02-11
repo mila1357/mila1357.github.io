@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>News & Movie Recommender</title>
-    
-        <!-- Link CSS from the static folder -->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    
-        <!-- Link JavaScript from the static folder -->
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
-    
-        <!-- Link Favicon -->
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    </head>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Movie Recommender</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
 <body>
-    <div class="container">
-        <h1>Movie Recommendation System</h1>
-        <input type="text" id="userInput" placeholder="Enter movie titles (comma-separated)">
-        <button onclick="getRecommendations()">Get Recommendations</button>
-        <div id="result"></div>
-    </div>
+    <h1>News & Movie Recommender</h1>
 
-    <script src="script.js"></script>
+    <form method="POST">
+        <input type="text" name="keyword" placeholder="Enter a movie title..." required>
+        <button type="submit">Recommend</button>
+    </form>
+
+    <div id="results"></div>
 </body>
 </html>
